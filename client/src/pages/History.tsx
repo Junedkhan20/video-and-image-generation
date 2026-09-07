@@ -43,6 +43,31 @@ export default function History() {
 
   useEffect(() => { load(filter); }, [filter]);
 
+  // Live polling for processing items
+  useEffect(() => {
+    if (filter !== 'processing') return;
+    const interval = setInterval(async () => {
+      try {
+        const { data } = await api.get('/generations', { params: { filter: 'processing' } });
+        const updated = data.filter((d: Gen) => d.status === 'processing');
+        if (updated.length === 0) {
+          load('all');
+        } else {
+          setItems((prev) => {
+            const merged = prev.map((p) => {
+              const match = updated.find((u: Gen) => u.id === p.id);
+              return match ? { ...p, ...match } : p;
+            });
+            return merged;
+          });
+        }
+      } catch (e) {
+        console.error('Poll error', e);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [filter]);
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
       <h1 className="text-3xl font-bold">History</h1>
