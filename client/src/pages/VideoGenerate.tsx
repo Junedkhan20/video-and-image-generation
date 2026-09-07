@@ -25,9 +25,21 @@ export default function VideoGenerate() {
     setLoading(true);
     setResult(null);
     try {
+      let resolvedImageUrl = imageUrl;
+
+      // Upload file if present
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append('file', imageFile);
+        const { data: uploadData } = await api.post('/generations/upload', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        resolvedImageUrl = uploadData.url;
+      }
+
       const payload = mode === 'text'
         ? { type: 'text', prompt, model, aspectRatio, duration, resolution }
-        : { type: 'image', imageUrl: imageFile ? 'uploaded' : imageUrl, motion, motionDescription: motionDesc, model, aspectRatio, duration, resolution };
+        : { type: 'image', imageUrl: resolvedImageUrl, motion, motionDescription: motionDesc, model, aspectRatio, duration, resolution };
       const { data } = await api.post('/generations/video', payload);
       setResult(data);
     } catch (e: any) {
@@ -60,10 +72,21 @@ export default function VideoGenerate() {
         ) : (
           <>
             <div>
-              <label className="block text-sm text-slate-400 mb-1">Start Image URL</label>
-              <input type="url" value={imageUrl} onChange={e => setImageUrl(e.target.value)}
+              <label className="block text-sm text-slate-400 mb-1">Start Image</label>
+              <input type="file" accept="image/*"
+                onChange={e => {
+                  const file = e.target.files?.[0] || null;
+                  setImageFile(file);
+                  if (file) setImageUrl('');
+                }}
+                className="w-full text-sm text-slate-300 file:mr-3 file:px-4 file:py-2 file:rounded-lg file:border-0 file:bg-violet-600 file:text-white hover:file:opacity-90" />
+              <p className="text-xs text-slate-500 mt-1">or provide a URL below</p>
+              <input type="url" value={imageUrl} onChange={e => {
+                setImageUrl(e.target.value);
+                if (e.target.value) setImageFile(null);
+              }} disabled={!!imageFile}
                 placeholder="https://example.com/image.jpg"
-                className="w-full px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 focus:border-violet-500 outline-none" />
+                className="w-full mt-2 px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 focus:border-violet-500 outline-none disabled:opacity-50" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
