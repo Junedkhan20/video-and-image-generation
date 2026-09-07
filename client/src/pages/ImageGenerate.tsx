@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import api from '../lib/api';
 
-const MODELS = ['default', 'flux-pro', 'sdxl', 'midjourney'];
-const STYLES = ['realistic', 'artistic', 'anime', 'photographic', '3d', 'cinematic'];
+const MODELS = ['flux-pro', 'flux-schnell', 'dalle-3', 'imagen-3', 'midjourney-v7', 'sdxl'];
+const STYLES = ['realistic', 'artistic', 'anime', 'photographic', '3d', 'cinematic', 'oil-painting', 'line-art'];
 const ASPECT_RATIOS = ['1:1', '16:9', '9:16', '4:3', '3:4', '9:21'];
 
 export default function ImageGenerate() {

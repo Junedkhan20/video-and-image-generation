@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import api from '../lib/api';
 
-const MODELS = ['default', 'model-a', 'model-b'];
-const ASPECT_RATIOS = ['16:9', '9:16', '1:1', '4:3'];
-const DURATIONS = [5, 10, 15, 30];
+const MODELS = ['kling-2.0', 'kling-1.6', 'runway-gen3', 'pika-2.2', 'luma-photon'];
+const ASPECT_RATIOS = ['16:9', '9:16', '1:1', '4:3', '21:9'];
+const DURATIONS = [5, 10, 15, 30, 60];
 const RESOLUTIONS = ['720p', '1080p', '4K'];
-const MOTIONS = ['left', 'right', 'up', 'down', 'zoom_in', 'zoom_out', 'pan', 'rotate'];
+const MOTIONS = ['left', 'right', 'up', 'down', 'zoom_in', 'zoom_out', 'pan', 'rotate', 'orbit', 'dolly'];
 
 export default function VideoGenerate() {
   const [mode, setMode] = useState<'text' | 'image'>('text');
