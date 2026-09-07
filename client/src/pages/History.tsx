@@ -32,7 +32,7 @@ export default function History() {
   const load = async (f: Filter) => {
     setLoading(true);
     try {
-      const { data } = await api.get('/generations', { params: { filter: f === 'all' ? '' : f } });
+      const { data } = await api.get('/api/generations', { params: { filter: f === 'all' ? '' : f } });
       setItems(data);
     } catch (e) {
       console.error(e);
