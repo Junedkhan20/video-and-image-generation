@@ -48,7 +48,7 @@ export default function History() {
     if (filter !== 'processing') return;
     const interval = setInterval(async () => {
       try {
-        const { data } = await api.get('/generations', { params: { filter: 'processing' } });
+        const { data } = await api.get('/api/generations', { params: { filter: 'processing' } });
         const updated = data.filter((d: Gen) => d.status === 'processing');
         if (updated.length === 0) {
           load('all');

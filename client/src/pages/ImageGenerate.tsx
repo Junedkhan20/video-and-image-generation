@@ -17,7 +17,7 @@ export default function ImageGenerate() {
     setLoading(true);
     setResult(null);
     try {
-      const { data } = await api.post('/generations/image', { model, prompt, style, aspectRatio });
+      const { data } = await api.post('/api/generations/image', { model, prompt, style, aspectRatio });
       setResult(data);
     } catch (e: any) {
       alert(e?.response?.data?.error || 'Generation failed');

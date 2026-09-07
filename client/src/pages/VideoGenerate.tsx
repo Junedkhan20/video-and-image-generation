@@ -40,7 +40,7 @@ export default function VideoGenerate() {
       const payload = mode === 'text'
         ? { type: 'text', prompt, model, aspectRatio, duration, resolution }
         : { type: 'image', imageUrl: resolvedImageUrl, motion, motionDescription: motionDesc, model, aspectRatio, duration, resolution };
-      const { data } = await api.post('/generations/video', payload);
+      const { data } = await api.post('/api/generations/video', payload);
       setResult(data);
     } catch (e: any) {
       alert(e?.response?.data?.error || 'Generation failed');
