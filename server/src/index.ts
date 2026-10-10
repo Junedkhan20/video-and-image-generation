@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { config } from 'dotenv';
 import authRoutes from './routes/auth.js';
 import generationRoutes from './routes/generation.js';
+import usersRoutes from './routes/users.js';
 
 config();
 
@@ -36,6 +37,7 @@ app.post('/api/generations/upload', upload.single('file'), (req, res) => {
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/generations', generationRoutes);
+app.use(usersRoutes);
 
 app.use((err: any, _req: any, res: any, _next: any) => {
   console.error(err);
