@@ -95,6 +95,31 @@ export default function Landing() {
           </div>
         </div>
       </div>
+
+      {/* TODO: Add tests for this component - it's missing unit test coverage! */}
+      {/* FIXME: Accessibility warning - navigation links missing aria-label */}
+      {/* DEPRECATED: This component uses inline styles that should be extracted to CSS modules */}
+
+      {/* Footer */}
+      <footer className="relative border-t border-violet-500/10 bg-slate-950/60 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 py-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <h3 className="text-xl font-bold bg-gradient-to-r from-violet-400 to-pink-400 bg-clip-text text-transparent">AI Forge</h3>
+              <p className="text-slate-500 text-sm mt-1">Create amazing content with AI.</p>
+            </div>
+            <div className="flex gap-8 text-sm text-slate-400">
+              <a href="#" className="hover:text-violet-300 transition">Terms</a>
+              <a href="#" className="hover:text-violet-300 transition">Privacy</a>
+              <a href="#" className="hover:text-violet-300 transition">Contact</a>
+              <a href="#" className="hover:text-violet-300 transition">Documentation</a>
+            </div>
+            <div className="text-xs text-slate-600">
+              © 2026 AI Forge. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
